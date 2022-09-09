@@ -1,5 +1,6 @@
 package com.example.chtigatpclima
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,5 +23,18 @@ class MainActivity : AppCompatActivity() {
         var linearLayout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rv_student.layoutManager = linearLayout
         rv_student.adapter = adapterStudent
+
+        adapterStudent.onClick = {
+            var pindah = Intent(this,DetailStudentActivity2::class.java)
+            pindah.putExtra("detailStudent",it)
+            startActivity(pindah)
+        }
+
+        btn_update_tanpa_diff.setOnClickListener{
+            listStudent[3] = ListStudent("update Rois","11111",R.drawable.rumah_adat_banten)
+            adapterStudent = StudentAdapter(listStudent)
+            rv_student.adapter= adapterStudent
+            adapterStudent.notifyDataSetChanged()
+        }
     }
 }
