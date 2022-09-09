@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var adapterStudentdiff : StudentAdapterDiffUtil
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -18,6 +21,7 @@ class MainActivity : AppCompatActivity() {
             ListStudent("Rois", "6565464556", R.drawable.ic_launcher_foreground),
             ListStudent("Syifa", "5465465444", R.drawable.ic_launcher_foreground)
         )
+
 
         var adapterStudent = StudentAdapter(listStudent)
         var linearLayout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -35,6 +39,14 @@ class MainActivity : AppCompatActivity() {
             adapterStudent = StudentAdapter(listStudent)
             rv_student.adapter= adapterStudent
             adapterStudent.notifyDataSetChanged()
+        }
+
+        btn_update_diff.setOnClickListener {
+//            val list: MutableList<ListStudent> = listStudent.toMutableList()
+            listStudent[1] = ListStudent("Update Titi", "123456789", R.drawable.rumah_adat_aceh)
+            adapterStudentdiff = StudentAdapterDiffUtil()
+            adapterStudentdiff.submitData(listStudent)
+            rv_student.adapter = adapterStudentdiff
         }
     }
 }
